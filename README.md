@@ -29,13 +29,13 @@ How to Run
    - Enter number of pages
    - Enter the sequence of page requests
      
-4. View the results:
+5. View the results:
    - The program will display the number of page faults for each algorithm
 
 Example:
-Enter number of frames: 3
-Enter number of pages: 10
-Enter page sequence: 7 0 1 2 0 3 4 2 3 0
+-Enter number of frames: 3
+-Enter number of pages: 10
+-Enter page sequence: 7 0 1 2 0 3 4 2 3 0
 
 Sample Output:
 FIFO Page Faults: 7
