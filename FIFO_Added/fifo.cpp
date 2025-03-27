@@ -1,50 +1,37 @@
 #include <iostream>
 using namespace std;
 
-#define MAX_FRAMES 10
-#define MAX_PAGES 100
-
-class PageReplacement {
-private:
-    int frames[MAX_FRAMES], numFrames;
-public:
-    PageReplacement(int n) {
-        numFrames = n;
-        for (int i = 0; i < numFrames; i++)
-            frames[i] = -1;
-    }
-    void FIFO(int pages[], int n);
-};
-
-void PageReplacement::FIFO(int pages[], int n) {
-    int index = 0, pageFaults = 0;
+void FIFO(int pages[], int n, int frames) {
+    int frame[frames], front = 0, count = 0;
+    for (int i = 0; i < frames; i++) frame[i] = -1;
+    
     for (int i = 0; i < n; i++) {
         bool found = false;
-        for (int j = 0; j < numFrames; j++)
-            if (frames[j] == pages[i]) found = true;
-
+        for (int j = 0; j < frames; j++) {
+            if (frame[j] == pages[i]) {
+                found = true;
+                break;
+            }
+        }
         if (!found) {
-            frames[index] = pages[i];
-            index = (index + 1) % numFrames;
-            pageFaults++;
+            frame[front] = pages[i];
+            front = (front + 1) % frames;
+            count++;
         }
     }
-    cout << "FIFO Page Faults: " << pageFaults << endl;
+    cout << "FIFO Page Faults: " << count << endl;
 }
 
 int main() {
-    int numFrames, numPages, pages[MAX_PAGES];
-    cout << "Enter number of frames: ";
-    cin >> numFrames;
+    int n, frames;
     cout << "Enter number of pages: ";
-    cin >> numPages;
+    cin >> n;
+    int pages[n];
+    cout << "Enter the page reference sequence: ";
+    for (int i = 0; i < n; i++) cin >> pages[i];
+    cout << "Enter number of frames: ";
+    cin >> frames;
 
-    cout << "Enter page sequence: ";
-    for (int i = 0; i < numPages; i++)
-        cin >> pages[i];
-
-    PageReplacement simulator(numFrames);
-    simulator.FIFO(pages, numPages);
-
+    FIFO(pages, n, frames);
     return 0;
 }
