@@ -1,64 +1,50 @@
 #include <iostream>
 using namespace std;
 
-#define MAX_FRAMES 10
-#define MAX_PAGES 100
-
-class PageReplacement {
-private:
-    int frames[MAX_FRAMES], numFrames;
-public:
-    PageReplacement(int n) {
-        numFrames = n;
-        for (int i = 0; i < numFrames; i++)
-            frames[i] = -1;
-    }
-    void Optimal(int pages[], int n);
-};
-
-void PageReplacement::Optimal(int pages[], int n) {
-    int pageFaults = 0;
+void Optimal(int pages[], int n, int frames) {
+    int frame[frames], count = 0;
+    for (int i = 0; i < frames; i++) frame[i] = -1;
+    
     for (int i = 0; i < n; i++) {
         bool found = false;
-        for (int j = 0; j < numFrames; j++)
-            if (frames[j] == pages[i]) found = true;
-
+        for (int j = 0; j < frames; j++) {
+            if (frame[j] == pages[i]) {
+                found = true;
+                break;
+            }
+        }
         if (!found) {
-            int replaceIndex = -1, farthest = i;
-            for (int j = 0; j < numFrames; j++) {
-                int k;
-                for (k = i + 1; k < n; k++)
-                    if (frames[j] == pages[k]) break;
-
-                if (k == n) {
-                    replaceIndex = j;
-                    break;
+            int replace = 0, farthest = -1;
+            for (int j = 0; j < frames; j++) {
+                int next_use = n;
+                for (int k = i + 1; k < n; k++) {
+                    if (frame[j] == pages[k]) {
+                        next_use = k;
+                        break;
+                    }
                 }
-                if (k > farthest) {
-                    farthest = k;
-                    replaceIndex = j;
+                if (next_use > farthest) {
+                    farthest = next_use;
+                    replace = j;
                 }
             }
-            frames[replaceIndex] = pages[i];
-            pageFaults++;
+            frame[replace] = pages[i];
+            count++;
         }
     }
-    cout << "Optimal Page Faults: " << pageFaults << endl;
+    cout << "Optimal Page Faults: " << count << endl;
 }
 
 int main() {
-    int numFrames, numPages, pages[MAX_PAGES];
-    cout << "Enter number of frames: ";
-    cin >> numFrames;
+    int n, frames;
     cout << "Enter number of pages: ";
-    cin >> numPages;
+    cin >> n;
+    int pages[n];
+    cout << "Enter the page reference sequence: ";
+    for (int i = 0; i < n; i++) cin >> pages[i];
+    cout << "Enter number of frames: ";
+    cin >> frames;
 
-    cout << "Enter page sequence: ";
-    for (int i = 0; i < numPages; i++)
-        cin >> pages[i];
-
-    PageReplacement simulator(numFrames);
-    simulator.Optimal(pages, numPages);
-
+    Optimal(pages, n, frames);
     return 0;
 }
