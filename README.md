@@ -33,14 +33,14 @@ How to Run
    - The program will display the number of page faults for each algorithm
 
 Example:
-   Enter number of frames: 3
    Enter number of pages: 10
    Enter page sequence: 7 0 1 2 0 3 4 2 3 0
+   Enter number of frames: 3
 
 Sample Output:
    FIFO Page Faults: 7
-   LRU Page Faults: 6
-   Optimal Page Faults: 5
+   LRU Page Faults: 8
+   Optimal Page Faults: 7
 
 
 Project Structure
