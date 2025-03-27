@@ -1,0 +1,23 @@
+Change Log - Page Replacement Algorithm Simulator
+
+[Version 1] - Initial Setup (Basic Structure)
+- Created the base project structure.
+- Designed input handling for frames and page sequences.
+
+[Version 2] - Implemented FIFO Algorithm
+- Added First-In-First-Out (FIFO) page replacement logic.
+- Integrated page fault counting.
+
+[Version 3] - Implemented LRU Algorithm
+- Developed Least Recently Used (LRU) algorithm.
+- Optimized recent usage tracking for page replacement.
+
+[Version 4] - Implemented Optimal Algorithm
+- Added Optimal page replacement logic.
+- Used future page reference tracking for better decisions.
+
+[Final Version] - Optimized & Documented Code
+- Combined all three algorithms into a single program.
+- Implemented a menu-based selection for user interaction.
+- Improved efficiency and removed redundant operations.
+- Fully documented the code and created a structured README.
